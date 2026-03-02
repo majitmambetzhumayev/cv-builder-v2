@@ -150,6 +150,7 @@ model Certification {
   title       Json
   school      Json?
   description Json?
+  date        DateTime?
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

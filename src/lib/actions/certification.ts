@@ -9,6 +9,7 @@ type dataType = {
     id?: string
     title?: Record<string, string> | null;
     school?: Record<string, string> | null;
+    date?: Date | null;
     description?: Record<string, string> | null;
 }
 
@@ -16,6 +17,7 @@ function toCertificationData(data: dataType) {
     return {
         title: (data.title ?? {}) as Record<string, string>, //title is required in the prisma schema, can't return an null or undefined
         school: data.school as Record<string, string> | undefined,
+        date: data.date,
         description: data.description as Record<string, string> | undefined,
     }
 }

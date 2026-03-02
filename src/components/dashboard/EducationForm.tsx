@@ -1,10 +1,10 @@
 "use client"
 
-import { createEducation, updateEducation, deleteEducation } from "@/lib/actions/education";
+import { createEducation, updateEducation  } from "@/lib/actions/education";
 import React from "react";
 import { useCvLocale } from "@/lib/contexts/cvLocale";
 import { useLocale } from "next-intl";
-import { useState } from "react";
+
 
 export type EducationData = {
     id: string
@@ -92,10 +92,6 @@ export default function EducationForm({ education, onCancel }: EducationFormProp
     const locale = useLocale();
     const [state, dispatch] = React.useReducer(educationReducer, getInitialState(education));
     const { loading, error, success, ...educationData } = state;
-
-    const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        dispatch({ type: 'SET_FIELD', field, value: e.target.value });
-    }
 
     const handleLocaleChange = (field: "school" | "diploma" | "description" ) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         dispatch({ type: 'SET_LOCALE_FIELD', field, locale: activeCvLocale.code, value: e.target.value });

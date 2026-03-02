@@ -1,6 +1,6 @@
 "use client"
 
-import { createExperience, updateExperience, deleteExperience } from "@/lib/actions/experience";
+import { createExperience, updateExperience  } from "@/lib/actions/experience";
 import React from "react";
 import { useCvLocale } from "@/lib/contexts/cvLocale";
 import { useLocale } from "next-intl";

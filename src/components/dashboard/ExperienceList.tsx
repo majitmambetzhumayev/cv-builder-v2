@@ -1,8 +1,10 @@
 "use client"
 import { useState } from "react"
 import ExperienceForm, { ExperienceData } from "./ExperienceForm"
+import { deleteExperience } from "@/lib/actions/experience";
 import { useCvLocale } from "@/lib/contexts/cvLocale";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { Trash } from "lucide-react";
 
 type ExperienceListProps = {
     experiences: ExperienceData[]
@@ -12,6 +14,11 @@ export default function ExperienceList ( {experiences} : ExperienceListProps) {
     const [editingId, setEditingId] = useState("")
     const { activeCvLocale } = useCvLocale();
     const t = useTranslations('dashboard.experience.list');
+    const locale = useLocale()
+
+    const handleDelete = async (id: string) => {
+                    await deleteExperience(id, locale)
+                }
 
     return (
         <div id="experienceList">
@@ -59,6 +66,10 @@ export default function ExperienceList ( {experiences} : ExperienceListProps) {
                                     onClick={() => setEditingId(exp.id)}
                                     className="m-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-slate-700 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50">
                                     {(t('edit'))}
+                                </button>
+                                <button type="button" 
+                                    onClick={() => handleDelete(exp.id)}>
+                                    <Trash size={16} color="red"/>
                                 </button>
                             </div>}
                     </li>

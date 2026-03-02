@@ -105,6 +105,19 @@
                 "add-skill-category": "Ajouter une catégorie",
                 "uncategorized": "Non categorisé"
             }
+        },
+        "certification" : {
+            "list": {
+                "add": "Ajouter",
+                "edit": "Modifier"
+            }
+        },
+        "project": {
+            "list": {
+                "add": "Ajouter",
+                "no-image": "Aucune image",
+                "edit": "Modifier"
+            }
         }
     }
 }

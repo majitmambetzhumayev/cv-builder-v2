@@ -1,67 +1,68 @@
 "use client"
 import { useState } from "react"
-import { deleteEducation } from "@/lib/actions/education";
-import EducationForm, { EducationData } from "./EducationForm"
+import ProjectForm, { ProjectData } from "./ProjectForm"
 import { useCvLocale } from "@/lib/contexts/cvLocale";
 import { useLocale, useTranslations } from "next-intl";
+import { deleteProject } from "@/lib/actions/project";
 import { Trash } from "lucide-react";
 
-type EducationListProps = {
-    education: EducationData[]
+
+type ProjectListProps = {
+    projects: ProjectData[]
 }
 
-export default function EducationList ( {education} : EducationListProps) {
+export default function ProjectList ( {projects} : ProjectListProps) {
     const [editingId, setEditingId] = useState("")
     const { activeCvLocale } = useCvLocale();
-    const t = useTranslations('dashboard.education.list');
+    const t = useTranslations('dashboard.project.list');
     const locale = useLocale()
 
-    const handleDelete = async (id: string) => {
-                await deleteEducation(id, locale)
-            }
+    const handleDelete = async (id:string) => {
+        deleteProject(id, locale)
+    }
 
     return (
-        <div id="educationList">
+        <div id="projectList">
             {editingId !== "new" &&
             <button onClick={() => setEditingId("new")}
                 className="inline-flex items-center m-4 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-slate-700 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50">
                 {t("add")}
             </button>}
             {editingId === "new" && (
-    <EducationForm education={null} onCancel={() => setEditingId("")} />
+                <ProjectForm project={null} onCancel={() => setEditingId("")} />
             )}
             <ul>
-                {education.map(edu => (
-                    <li key={edu.id}>
-                        {editingId === edu.id 
-                            ? <EducationForm education={edu} onCancel={() => setEditingId("")}/>
+                {projects.map(c => (
+                    <li key={c.id}>
+                        {editingId === c.id 
+                            ? <ProjectForm project={c} onCancel={() => setEditingId("")}/>
                             : <div>
                                 <h3 className="p-4">
-                                {edu.school?.[activeCvLocale.code]}
+                                {c.title?.[activeCvLocale.code]}
                                 </h3>
                                 <p className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
-                                    {edu.diploma?.[activeCvLocale.code]}
+                                    {c.description?.[activeCvLocale.code]}
                                 </p>
                                 <p className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
-                                    {edu.description?.[activeCvLocale.code]}
+                                    {c.link}
                                 </p>
                                 <p className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
-                                    {edu.startDate?.toLocaleDateString()} {/* React can't render a Date object directly so we need to convert it */}
+                                    {c.github}
                                 </p>
-                                {!edu.current && 
-                                (<p className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
-                                    {edu.endDate?.toLocaleDateString()}
-                                </p>)}
-                                <p className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
-                                    {edu.current ? (t('current')) : (t('past'))}.
-                                </p>
+                                {c.image ? <img
+                                alt="Project Image"
+                                src={c.image} 
+                                /> : <p className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                                    {t('no-image')}
+                                </p>}
+                                
                                 <button 
-                                    onClick={() => setEditingId(edu.id)}
+                                    onClick={() => setEditingId(c.id)}
                                     className="m-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-slate-700 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50">
-                                    {(t('edit'))}
+                                    {(t("edit"))}
                                 </button>
                                 <button type="button" 
-                                    onClick={() => handleDelete(edu.id)}>
+                                    onClick={() => handleDelete(c.id)}>
                                     <Trash size={16} color="red"/>
                                 </button>
                             </div>}

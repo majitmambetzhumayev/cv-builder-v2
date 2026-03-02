@@ -25,14 +25,16 @@ function toProjectData(data: dataType) {
 }
 
 export async function createProject(data: dataType, locale:string): Promise<{ success: true } | { error: string }> {
-   return (withAuth(locale, "/dashboard/project", (userId) => 
-        prisma.project.create({
-            data: {
-                userId: userId,
-                ...toProjectData(data)
-            }
-        })
-   ))
+   return (withAuth(locale, "/dashboard/project", async (userId) => {
+      const count = await prisma.project.count({ where: { userId } })
+      return prisma.project.create({
+          data: {
+              userId,
+              sortOrder: count + 1,
+              ...toProjectData(data)
+          }
+      })
+  }))
 }
 
 export async function updateProject(data: dataType, locale:string): Promise<{ success: true } | { error: string }> {
