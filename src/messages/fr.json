@@ -1,0 +1,110 @@
+{
+    "login": {
+        "title": "Connectez-vous à votre compte",
+        "subtitle": "Entrez vos identifiants pour accéder à votre compte",
+        "identifier": "Email ou Nom d'utilisateur",
+        "password": "Mot de passe",
+        "submit": "Se connecter",
+        "credential-error": "Email ou mot de passe incorrect.",
+        "login-error": "Une erreur s'est produite lors de la connexion. Veuillez réessayer.",
+        "loading": "Connexion en cours...",
+        "login": "Se connecter",
+        "signup-prompt": "Vous n'avez pas de compte ?",
+        "signup-link": "S'inscrire",
+        "or": "Ou",
+        "github": "Se connecter avec GitHub",
+        "google": "Se connecter avec Google"
+    },
+    "onboarding": {
+        "title": "Configurez votre profil",
+        "subtitle": "C'est ainsi que vous apparaîtrez sur sparqup",
+        "username": "Nom d'utilisateur",
+        "username-placeholder": "votreprénom",
+        "username-hint": "Votre URL publique : {username}.sparqup.fr",
+        "username-available": "{username}.sparqup.fr est disponible",
+        "job-title": "Titre du poste",
+        "job-title-placeholder": "Sélectionnez ou saisissez votre titre",
+        "industry": "Secteur d'activité",
+        "industry-placeholder": "Sélectionnez votre secteur",
+        "cv-languages": "Langues du CV",
+        "cv-languages-hint": "Sélectionnez les langues dans lesquelles votre CV sera rédigé",
+        "cv-languages-other": "Autre (code ISO, ex. ru, ar, zh)",
+        "select-language": "Ajouter une langue...",
+        "custom-cv-locales": "Autre langue",
+        "submit": "Terminer la configuration",
+        "continue": "Continuer",
+        "loading": "Configuration de votre profil...",
+        "error": {
+            "MISSING_FIELDS": "Veuillez remplir tous les champs.",
+            "USERNAME_TOO_SHORT": "Le nom d'utilisateur doit contenir au moins 3 caractères.",
+            "USERNAME_TOO_LONG": "Le nom d'utilisateur doit contenir 20 caractères maximum.",
+            "INVALID_USERNAME_CHARS": "Le nom d'utilisateur ne peut contenir que des lettres minuscules, chiffres, tirets et underscores.",
+            "USERNAME_RESERVED": "Ce nom d'utilisateur est réservé.",
+            "USERNAME_TAKEN": "Ce nom d'utilisateur est déjà pris.",
+            "USERNAME_AVAILABLE": "{username}.sparqup.fr est disponible",
+            "UNAUTHORIZED": "Vous devez être connecté pour compléter l'onboarding.",
+            "INTERNAL_SERVER_ERROR": "Une erreur est survenue. Veuillez réessayer.",
+            "GENERIC_ERROR": "Une erreur est survenue. Veuillez réessayer."
+        }
+    },
+    "registration": {
+        "title": "Créez votre compte",
+        "subtitle": "Entrez vos informations pour créer un nouveau compte",
+        "name": "Votre nom complet",
+        "email": "Email",
+        "password": "Mot de passe",
+        "password-requirements": "Le mot de passe doit comporter au moins 8 caractères",
+        "submit": "S'inscrire",
+        "error": {
+            "MISSING_FIELDS": "Veuillez remplir tous les champs.",
+            "PASSWORD_TOO_SHORT": "Le mot de passe doit contenir au moins 8 caractères.",
+            "EMAIL_ALREADY_EXISTS": "Un compte avec cet email existe déjà.",
+            "INTERNAL_SERVER_ERROR": "Une erreur est survenue. Veuillez réessayer.",
+            "registration-failed": "L'inscription a échoué. Veuillez réessayer."
+        },
+        "login-prompt": "Vous avez déjà un compte ?",
+        "login-link": "Se connecter",
+        "loading": "Création du compte...",
+        "registration": "S'inscrire"
+    },
+    "dashboard": {
+        "welcome": "Bienvenue sur votre tableau de bord",
+        "description": "Gérez votre profil, construisez votre CV et analysez vos performances à partir de votre tableau de bord personnalisé.",
+        "nav": {
+            "dashboard": "Dashboard",
+            "cv-builder": "CV Builder",
+            "analytics": "Analytiques",
+            "profile": "Paramètres du profil"
+        },
+        "cv-locale-switcher": {
+            "add-locale": "Ajouter une langue au CV"
+        },
+        "experience": {
+            "list": {
+                "current": "Actuellement en poste",
+                "past": "Expérience passée",
+                "edit": "Modifier l'expérience",
+                "add": "Ajouter une expérience"
+            }
+        },
+        "education": {
+            "list": {
+                "current": "Current school",
+                "past": "Past education",
+                "edit": "Edit education",
+                "add" : "Add education"
+            }
+        },
+        "skills" : {
+            "form": {
+                "add-skill": "Ajouter une compétence"
+            }
+        },
+        "skillscategory" : {
+            "form": {
+                "add-skill-category": "Ajouter une catégorie",
+                "uncategorized": "Non categorisé"
+            }
+        }
+    }
+}

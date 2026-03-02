@@ -1,26 +1,287 @@
 @import "tailwindcss";
 
+/* ============================================
+   TWO STYLE SCOPES — HOW THIS FILE IS ORGANIZED
+
+   1. PLATFORM TOKENS  →  @theme (compile-time, static)
+      Used by sparqup.fr itself: dashboard, landing, auth pages.
+      Tailwind classes: forest-*, neutral-*
+      Never overridden at runtime.
+
+   2. TENANT TOKENS  →  :root + accent-* in @theme
+      Overridden at runtime by a <style> tag injected in the
+      tenant layout, specific to each user's chosen appearance.
+      Use accent-* classes on all tenant-facing components.
+
+      The tenant layout injects something like:
+        <style>{`
+          :root {
+            --tenant-accent-500: oklch(0.62 0.20 250);
+            --tenant-font-heading: 'Playfair Display', serif;
+            --tenant-base-size: 1.05;
+          }
+        `}</style>
+   ============================================ */
+
+
+@theme {
+
+  /* ============================================
+     1. PLATFORM PALETTE — FOREST
+     Platform pages only (sparqup.fr).
+     Use bg-forest-*, text-forest-*, etc.
+     ============================================ */
+
+  --color-forest-50:  oklch(0.98 0.02 155);
+  --color-forest-100: oklch(0.94 0.05 155);
+  --color-forest-400: oklch(0.72 0.12 155);
+  --color-forest-500: oklch(0.65 0.15 155);
+  --color-forest-600: oklch(0.55 0.13 155);
+  --color-forest-700: oklch(0.45 0.12 155);
+  --color-forest-800: oklch(0.32 0.08 155);
+  --color-forest-900: oklch(0.22 0.06 155);
+  --color-forest-950: oklch(0.15 0.04 155);
+
+
+  /* ============================================
+     2. NEUTRAL — Shared across platform and tenant
+     ============================================ */
+
+  --color-neutral-50:  oklch(0.99 0 0);
+  --color-neutral-100: oklch(0.97 0 0);
+  --color-neutral-200: oklch(0.93 0 0);
+  --color-neutral-300: oklch(0.87 0 0);
+  --color-neutral-400: oklch(0.70 0 0);
+  --color-neutral-500: oklch(0.60 0 0);
+  --color-neutral-600: oklch(0.50 0 0);
+  --color-neutral-700: oklch(0.40 0 0);
+  --color-neutral-800: oklch(0.28 0 0);
+  --color-neutral-900: oklch(0.18 0 0);
+  --color-neutral-950: oklch(0.08 0 0);
+
+
+  /* ============================================
+     3. ACCENT — Tenant color (dynamic)
+
+     These values point to CSS vars with forest as the default.
+     The tenant layout overrides --tenant-accent-* to apply
+     whatever color the user picked in their appearance settings.
+
+     Use bg-accent-*, text-accent-*, border-accent-*
+     on all components that appear on tenant portfolio pages.
+     ============================================ */
+
+  --color-accent-50:  var(--tenant-accent-50,  oklch(0.98 0.02 155));
+  --color-accent-100: var(--tenant-accent-100, oklch(0.94 0.05 155));
+  --color-accent-400: var(--tenant-accent-400, oklch(0.72 0.12 155));
+  --color-accent-500: var(--tenant-accent-500, oklch(0.65 0.15 155));
+  --color-accent-600: var(--tenant-accent-600, oklch(0.55 0.13 155));
+  --color-accent-700: var(--tenant-accent-700, oklch(0.45 0.12 155));
+  --color-accent-800: var(--tenant-accent-800, oklch(0.32 0.08 155));
+  --color-accent-900: var(--tenant-accent-900, oklch(0.22 0.06 155));
+  --color-accent-950: var(--tenant-accent-950, oklch(0.15 0.04 155));
+
+
+  /* ============================================
+     4. SUCCESS — Semantic alias of forest
+     Used for status badges like "Open to work", etc.
+     ============================================ */
+
+  --color-success-50:  var(--color-forest-50);
+  --color-success-500: var(--color-forest-500);
+  --color-success-600: var(--color-forest-600);
+  --color-success-700: var(--color-forest-700);
+
+
+  /* ============================================
+     5. BASE
+     ============================================ */
+
+  --color-white: oklch(1 0 0);
+  --color-black: oklch(0 0 0);
+
+
+  /* ============================================
+     6. BORDER RADIUS
+     ============================================ */
+
+  --radius-sm:   0.375rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.75rem;
+  --radius-xl:   1rem;
+  --radius-2xl:  1.5rem;
+  --radius-full: 9999px;
+
+
+  /* ============================================
+     7. BACKDROP BLUR
+     ============================================ */
+
+  --backdrop-blur-sm: 4px;
+  --backdrop-blur-md: 12px;
+  --backdrop-blur-lg: 24px;
+  --backdrop-blur-xl: 40px;
+
+
+  /* ============================================
+     8. TYPOGRAPHY — Tenant (dynamic)
+
+     Declared here in @theme so Tailwind generates
+     font-heading / font-body utility classes.
+     The actual value comes from :root and gets overridden
+     by the tenant layout per user.
+     ============================================ */
+
+  --font-heading: var(--tenant-font-heading, 'Inter', sans-serif);
+  --font-body:    var(--tenant-font-body,    'Inter', sans-serif);
+}
+
+
+/* ============================================
+   TENANT DEFAULTS — Runtime values
+
+   These are the fallback values applied globally.
+   The tenant layout overrides them for each portfolio page.
+
+   TO ADD A NEW ACCENT COLOR:
+   Add an entry to SiteSettings.accentColor (e.g. "blue"),
+   define its 9 oklch values here as a reference comment,
+   then inject them in the tenant layout via a switch/map.
+   ============================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Accent — forest by default */
+  --tenant-accent-50:  oklch(0.98 0.02 155);
+  --tenant-accent-100: oklch(0.94 0.05 155);
+  --tenant-accent-400: oklch(0.72 0.12 155);
+  --tenant-accent-500: oklch(0.65 0.15 155);
+  --tenant-accent-600: oklch(0.55 0.13 155);
+  --tenant-accent-700: oklch(0.45 0.12 155);
+  --tenant-accent-800: oklch(0.32 0.08 155);
+  --tenant-accent-900: oklch(0.22 0.06 155);
+  --tenant-accent-950: oklch(0.15 0.04 155);
+
+  /* Other accents to implement in the tenant layout:
+
+  ocean  : oklch(0.65 0.15 220) → 500
+  sunset : oklch(0.65 0.18 30)  → 500
+  violet : oklch(0.60 0.20 290) → 500
+  rose   : oklch(0.65 0.18 355) → 500
+  */
+
+  /* Fonts — Inter by default */
+  --tenant-font-heading: 'Inter', sans-serif;
+  --tenant-font-body:    'Inter', sans-serif;
+
+  /* Scale — 1 is neutral, above 1 increases size/spacing.
+     Usage: font-size: calc(var(--tenant-base-size) * 1rem)
+            gap:       calc(var(--tenant-spacing-scale) * 1rem) */
+  --tenant-base-size:     1;
+  --tenant-spacing-scale: 1;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+@layer base {
+  * {
+    @apply border-neutral-800;
+  }
+
+  html {
+    @apply antialiased scroll-smooth;
+  }
+
+  /* font-body resolves through the CSS var — tenant can override it */
+  body {
+    @apply bg-neutral-950 text-neutral-100;
+    font-family: var(--font-body);
+  }
+
+  /* font-heading resolves through the CSS var — tenant can override it */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+
+  h1 { @apply text-4xl md:text-6xl font-bold   tracking-tight text-neutral-50; }
+  h2 { @apply text-3xl md:text-5xl font-semibold tracking-tight text-neutral-50; }
+  h3 { @apply text-2xl md:text-3xl font-semibold text-neutral-100; }
+  h4 { @apply text-xl  md:text-2xl font-medium   text-neutral-100; }
+  p  { @apply text-base md:text-lg  leading-relaxed text-neutral-300; }
+  a  { @apply transition-colors duration-200; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+
+@layer utilities {
+
+  /* --- PLATFORM ONLY (hardcoded forest) --- */
+
+  /* Header for the sparqup.fr platform */
+  .glass-header {
+    @apply backdrop-blur-xl bg-forest-900/50 border-b border-white/10;
+  }
+
+  /* Generic glass card — neutral, safe to use anywhere */
+  .glass-card {
+    @apply backdrop-blur-lg bg-neutral-900/40 border border-white/10 rounded-xl;
+  }
+
+  /* Text gradient — platform only, fixed forest colors */
+  .text-gradient-platform {
+    @apply bg-gradient-to-r from-forest-400 to-forest-600 bg-clip-text text-transparent;
+  }
+
+  /* Glow — platform only */
+  .glow-platform {
+    box-shadow: 0 0 20px oklch(0.72 0.12 155 / 0.3);
+  }
+
+
+  /* --- TENANT (dynamic accent) --- */
+
+  /* Text gradient — follows the tenant's chosen accent color */
+  .text-gradient-accent {
+    background: linear-gradient(
+      to right,
+      var(--tenant-accent-400),
+      var(--tenant-accent-600)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow — follows the tenant's chosen accent color */
+  .glow-accent {
+    box-shadow: 0 0 20px oklch(from var(--tenant-accent-500) l c h / 0.3);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes grid-scroll {
+  from { background-position: 0 0; }
+  to   { background-position: 300px 300px; }
+}
+
+.animate-grid-scroll {
+  animation: grid-scroll 60s linear infinite;
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out;
 }

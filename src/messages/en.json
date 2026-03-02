@@ -1,0 +1,111 @@
+{
+    "login": {
+        "title": "Login to your account",
+        "subtitle": "Enter your credentials to access your account",
+        "identifier": "Email or Username",
+        "password": "Password",
+        "submit": "Sign In",
+        "credential-error": "Invalid email or password.",
+        "login-error": "An error occurred during login. Please try again.",
+        "loading": "Logging in...",
+        "login": "Sign In",
+        "signup-prompt": "Don't have an account?",
+        "signup-link": "Sign Up",
+        "or": "Or",
+        "github": "Sign in with GitHub",
+        "google": "Sign in with Google"
+    },
+    "onboarding": {
+        "title": "Set up your profile",
+        "subtitle": "This is how you'll appear on sparqup",
+        "username": "Username",
+        "username-placeholder": "yourname",
+        "username-hint": "Your public URL: {username}.sparqup.fr",
+        "username-available": "{username}.sparqup.fr is available",
+        "job-title": "Job title",
+        "job-title-placeholder": "Select or type your job title",
+        "industry": "Industry",
+        "industry-placeholder": "Select your industry",
+        "cv-languages": "CV languages",
+        "cv-languages-hint": "Select the languages your CV will be written in",
+        "cv-languages-other": "Other (ISO code, e.g. ru, ar, zh)",
+        "select-language": "Add a language...",
+        "custom-cv-locales": "Other language",
+        "submit": "Complete setup",
+        "continue": "Continue",
+        "loading": "Setting up your profile...",
+        "error": {
+            "MISSING_FIELDS": "Please fill in all fields.",
+            "USERNAME_TOO_SHORT": "Username must be at least 3 characters.",
+            "USERNAME_TOO_LONG": "Username must be 20 characters or less.",
+            "INVALID_USERNAME_CHARS": "Username can only contain lowercase letters, numbers, hyphens and underscores.",
+            "USERNAME_RESERVED": "This username is reserved.",
+            "USERNAME_TAKEN": "This username is already taken.",
+            "USERNAME_AVAILABLE": "{username}.sparqup.fr is available",
+            "UNAUTHORIZED": "You must be logged in to complete onboarding.",
+            "INTERNAL_SERVER_ERROR": "Something went wrong. Please try again.",
+            "GENERIC_ERROR": "Something went wrong. Please try again."
+        }
+    },
+    "registration": {
+        "title": "Create your account",
+        "subtitle": "Enter your details to create a new account",
+        "name": "Your full name",
+        "email": "Email",
+        "password": "Password",
+        "password-requirements": "Password must be at least 8 characters long",
+        "submit": "Sign Up",
+        "error": {
+            "MISSING_FIELDS": "Please fill in all fields.",
+            "PASSWORD_TOO_SHORT": "Password must be at least 8 characters.",
+            "EMAIL_ALREADY_EXISTS": "An account with this email already exists.",
+            "INTERNAL_SERVER_ERROR": "Something went wrong. Please try again.",
+            "registration-failed": "Registration failed. Please try again."
+        },
+        "login-prompt": "Already have an account?",
+        "login-link": "Log In",
+        "loading": "Creating account...",
+        "registration": "Sign Up"
+    },
+    "dashboard": {
+        "welcome": "Welcome to your dashboard",
+        "description": "Manage your CVs, view analytics and customize your profile.",
+        "nav": {
+            "dashboard": "Dashboard",
+            "cv-builder": "CV Builder",
+            "analytics": "Analytics",
+            "profile": "Profile Settings"
+        },
+        "cv-locale-switcher": {
+            "add-locale": "Add CV language"
+        },
+        "experience": {
+            "list": {
+                "current": "Current position",
+                "past": "Past experience",
+                "edit": "Edit experience",
+                "add" : "Add experience"
+            }
+        },
+        "education": {
+            "list": {
+                "current": "Current school",
+                "past": "Past education",
+                "edit": "Edit education",
+                "add" : "Add education"
+            }
+        },
+        "skills" : {
+            "form": {
+                "add-skill": "Add a new skill"
+            }
+        },
+        "skillscategory" : {
+            "form": {
+                "add-skill-category": "Add a new category",
+                "uncategorized": "Uncategorized"
+            }
+        }
+    }
+    
+}

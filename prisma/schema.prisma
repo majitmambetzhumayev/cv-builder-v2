@@ -1,0 +1,205 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Plan {
+  FREE
+  PRO
+}
+
+enum Role {
+  USER
+  ADMIN
+  FINANCE
+  SUPERUSER
+}
+
+enum OnBoardingStatus {
+  PENDING
+  USERNAME_SET
+  COMPLETE
+}
+
+model User {
+  id String @id @default(cuid())
+  name String?
+  username String? @unique
+  email String? @unique
+  emailVerified DateTime?
+  image String?
+  passwordHash String?
+  plan Plan @default(FREE)
+  cvLocales Json @default("[]")
+  createdAt DateTime @default(now())
+  sessions Session[]
+  accounts Account[]
+  updatedAt DateTime @updatedAt
+  role Role @default(USER)
+  onboardingStatus OnBoardingStatus @default(PENDING)
+  jobTitle String?
+  industry String?
+  profile       Profile?
+  experiences   Experience[]
+  educations    Education[]
+  skills        Skill[]
+  certifications Certification[]
+  projects      Project[]
+  contactSettings ContactSettings?
+  siteSettings  SiteSettings?
+  skillCategories SkillsCategory[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@id([provider, providerAccountId])
+}
+
+model Profile {
+  id        String  @id @default(cuid())
+  userId    String  @unique
+  fullName  String?
+  headline  Json?   
+  summary   Json?   
+  photoUrl  String?
+  email     String?
+  phone     String?
+  location  String?
+  website   String?
+  github    String?
+  linkedin  String?
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Experience {
+  id          String  @id @default(cuid())
+  userId      String 
+  sortOrder Int @default(0) 
+  role        Json?
+  company     String?
+  startDate   DateTime?
+  endDate     DateTime?
+  current     Boolean @default(false)
+  description Json?
+  chips       String[]
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Education {
+  id          String  @id @default(cuid())
+  userId      String  
+  sortOrder Int @default(0) 
+  startDate   DateTime?
+  endDate     DateTime?
+  current     Boolean @default(false)
+  diploma     Json?
+  school      Json?
+  description Json?
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Skill {
+  id          String  @id @default(cuid())
+  userId      String  
+  sortOrder Int @default(0) 
+  title       Json
+  categoryId  String?
+  category SkillsCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SkillsCategory {
+  id          String  @id @default(cuid())
+  userId      String  
+  title       Json
+  skills      Skill[]
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Certification {
+  id          String  @id @default(cuid())
+  userId      String  
+  sortOrder Int @default(0) 
+  title       Json
+  school      Json?
+  description Json?
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Project {
+  id          String  @id @default(cuid())
+  userId      String 
+  sortOrder Int @default(0) 
+  title       Json?
+  description Json?
+  link        String?
+  github      String?
+  image       String?
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)  
+}
+
+model ContactSettings {
+  id          String  @id @default(cuid())
+  userId      String  @unique
+  public      Boolean @default(true)
+  sectionTitle Json?
+  subtitle    Json?
+  successMessage Json?
+  errorMessage Json?
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)    
+}
+
+model SiteSettings {
+  id          String  @id @default(cuid())
+  userId      String  @unique
+  layoutId    String  @default("classic")
+  themeMode   String  @default("dark")
+  accentColor String  @default("forest")
+  sectionOrder Json   @default("[\"cv\",\"projects\",\"contact\"]")
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)      
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+ 
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@id([identifier, token])
+}
