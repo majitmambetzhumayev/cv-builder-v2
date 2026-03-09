@@ -18,7 +18,7 @@ export default function ProjectList ( {projects} : ProjectListProps) {
     const locale = useLocale()
 
     const handleDelete = async (id:string) => {
-        deleteProject(id, locale)
+        await deleteProject(id, locale)
     }
 
     return (

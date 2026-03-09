@@ -14,7 +14,7 @@ export default async function SettingsPage() {
 
     return (
             <div>
-                <h1>Skills</h1>
+                <h1>Settings</h1>
                 <ContactSettingsForm contactSettings={contactSettings ? {
                     public: contactSettings.public,
                     sectionTitle: contactSettings.sectionTitle as Record<string, string> | null,
