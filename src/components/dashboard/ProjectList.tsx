@@ -49,7 +49,8 @@ export default function ProjectList ( {projects} : ProjectListProps) {
                                 <p className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
                                     {c.github}
                                 </p>
-                                {c.image ? <img
+                                {/* eslint-disable-next-line @next/next/no-img-element */} 
+                                {c.image ? <img 
                                 alt="Project Image"
                                 src={c.image} 
                                 /> : <p className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">

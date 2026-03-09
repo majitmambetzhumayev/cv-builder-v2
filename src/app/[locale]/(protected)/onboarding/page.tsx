@@ -47,7 +47,7 @@ export default function OnboardingPage() {
       } else {
         router.push(`/${locale}/dashboard`);
       }
-    } catch (error) {
+    } catch {
       setError(t('error.GENERIC_ERROR'));
     } finally {
       setLoading(false);
