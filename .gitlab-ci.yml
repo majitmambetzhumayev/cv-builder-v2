@@ -19,7 +19,7 @@ before_script:
   - corepack enable
   - corepack prepare pnpm@${PNPM_VERSION} --activate
   - pnpm install --frozen-lockfile  
-  - prisma generate
+  - pnpm prisma generate
 
 typecheck:
     stage: validate
