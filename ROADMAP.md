@@ -173,11 +173,13 @@ GitLab CI pipeline (`.gitlab-ci.yml`) — two remotes, `origin` (GitHub) and `gi
 | Stage | Jobs | Notes |
 |---|---|---|
 | validate | typecheck, lint (parallel) | Fail fast before expensive build |
-| build | build | Only runs if validate passes |
+| test | test | Vitest unit tests for all auth API routes |
+| build | build | Only runs if validate and test pass |
 
 - Global `before_script`: `corepack enable` → `pnpm install` → `pnpm prisma generate`
 - Cache: `.pnpm-store` keyed on `pnpm-lock.yaml` hash
-- `package.json` has `"typecheck": "tsc --noEmit"` added
+- `package.json` has `"typecheck": "tsc --noEmit"` and `"test": "vitest run"` added
+- Tests cover `check-username`, `registration`, `onboarding` — Prisma and NextAuth session mocked via `vi.mock` + `vi.hoisted`
 
 ---
 
