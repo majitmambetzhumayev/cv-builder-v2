@@ -32,6 +32,11 @@ lintcheck:
     script:
      - pnpm lint --max-warnings=0
 
+test:
+  stage: test
+  script:
+    - pnpm test
+
 build:
     stage: build
     script: 
