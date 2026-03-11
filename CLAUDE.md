@@ -21,6 +21,13 @@ Full architecture and 7-stage build plan: **see `ROADMAP.md`**.
 
 **Stage 2 — In progress.** All CV Prisma models migrated. Server actions done for all models (profile, experience, education, skill, skillCategory, certification, project, contactSettings, siteSettings). Dashboard forms done: Profile, Experience (with ExperienceList), Education (with EducationList), Skills (SkillManager + SkillCategoryManager). Remaining: Certifications, Projects, ContactSettings, SiteSettings forms + pages.
 
+## CI/CD
+GitLab CI pipeline set up (`.gitlab-ci.yml`). Two remotes: `origin` (GitHub), `gitlab` (GitLab).
+Pipeline stages: `validate` (typecheck + lint in parallel) → `build`.
+- `pnpm prisma generate` runs in `before_script` before every job — required because generated client is gitignored
+- `--max-warnings=0` on lint — warnings are treated as errors
+- `DATABASE_URL` not needed in CI — pipeline only validates code, does not connect to DB
+
 ## Known TODOs (future stages)
 - Date picker with calendar view (current HTML date input is painful)
 - Drag-and-drop reordering for all list sections — `sortOrder` field already in Prisma schema, needs `@dnd-kit/core` frontend + `updateSortOrder` server actions

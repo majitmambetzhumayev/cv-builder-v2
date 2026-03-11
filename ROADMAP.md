@@ -66,6 +66,9 @@ Replace v1's hardcoded `forest-*` classes with semantic `accent-*` aliases in `g
 ### Reserved Usernames
 Block at registration: `dashboard`, `login`, `register`, `registration`, `api`, `studio`, `admin`, `www`, `root`, `superuser`, `support`, `help`, `contact`, `info`, `about`, `security`, `privacy`
 
+### Username Format & SEO
+Allowed chars: `[a-z0-9-_]`. Both hyphens and underscores are valid, but hyphens are preferred for SEO — `john-doe.sparqup.fr` is treated as two words by search engines, `john_doe` is not. Guide users toward hyphens via UI copy (placeholder, hint text) without enforcing it technically.
+
 ### cvLocales Schema
 Stored as `Json` (JSONB) array of `{ code: string, label: string }` objects — NOT `String[]`.
 Default: `"[]"` in schema, set to `[{ code: locale, label: ... }]` during onboarding.
@@ -160,6 +163,21 @@ src/
     ├── upload/                   # R2 presigned URL
     └── domains/                  # Register + verify custom domains
 ```
+
+---
+
+## CI/CD Infrastructure
+
+GitLab CI pipeline (`.gitlab-ci.yml`) — two remotes, `origin` (GitHub) and `gitlab` (GitLab).
+
+| Stage | Jobs | Notes |
+|---|---|---|
+| validate | typecheck, lint (parallel) | Fail fast before expensive build |
+| build | build | Only runs if validate passes |
+
+- Global `before_script`: `corepack enable` → `pnpm install` → `pnpm prisma generate`
+- Cache: `.pnpm-store` keyed on `pnpm-lock.yaml` hash
+- `package.json` has `"typecheck": "tsc --noEmit"` added
 
 ---
 

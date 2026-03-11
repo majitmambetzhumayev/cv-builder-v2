@@ -2,6 +2,7 @@
 import { prisma } from "@/lib/db";
 import { NextRequest, NextResponse } from 'next/server';
 
+
 export async function GET(request: NextRequest) {
 
     try {
@@ -11,7 +12,7 @@ export async function GET(request: NextRequest) {
 
         if (!username) return NextResponse.json({ available: false }, { status: 400 });
         
-        if (username.length > 20) {
+        if (username.length > 30) {
         return NextResponse.json(
             { error: 'USERNAME_TOO_LONG' },
             { status: 400 }

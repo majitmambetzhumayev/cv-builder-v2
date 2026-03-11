@@ -18,7 +18,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'MISSING_FIELDS' }, { status: 400 });
         }
 
-        if (username.length > 20) {
+        if (username.length > 30) {
         return NextResponse.json(
             { error: 'USERNAME_TOO_LONG' },
             { status: 400 }
